@@ -1,5 +1,6 @@
 class CalorieCounter(input: String) {
-    private val elves = input.split("\n\n").map { Elf(it) }
-    fun numberOfElves() = elves.size
-    fun highestAmountOfCalories() = elves.map { it.totalCalories }.max() ?: 0
+    private val elfCalories = input.split("\n\n").map { Elf(it).totalCalories }
+    fun numberOfElves() = elfCalories.size
+    fun highestAmountOfCalories() = elfCalories.max() ?: 0
+    fun sumOfTopThree() = elfCalories.sortedDescending().subList(0, 3).sum()
 }
