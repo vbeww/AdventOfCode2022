@@ -15,9 +15,9 @@ internal class CalorieCounterTest {
         """.trimIndent()
 
         val firstElf = Elf(caloriesListFirstElf)
-        assertEquals(6000, firstElf.totalCalories())
+        assertEquals(6000, firstElf.totalCalories)
 
         val secondElf = Elf(caloriesListSecondtElf)
-        assertEquals(63071, secondElf.totalCalories())
+        assertEquals(63071, secondElf.totalCalories)
     }
 }
