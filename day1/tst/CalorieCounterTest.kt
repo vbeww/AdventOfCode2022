@@ -5,44 +5,32 @@ internal class CalorieCounterTest {
     @Test
     fun `elves have total of calories`() {
         val caloriesListFirstElf = """
-1000
-2000
-3000
+            1000
+            2000
+            3000
         """.trimIndent()
         val caloriesListSecondtElf = """
-35747
-27324
+            35747
+            27324
         """.trimIndent()
 
-        val firstElf = Elf(caloriesListFirstElf)
-        assertEquals(6000, firstElf.totalCalories)
-
-        val secondElf = Elf(caloriesListSecondtElf)
-        assertEquals(63071, secondElf.totalCalories)
+        assertEquals(6000, Elf(caloriesListFirstElf).totalCalories)
+        assertEquals(63071, Elf(caloriesListSecondtElf).totalCalories)
     }
 
     @Test
     fun `calorie counter has multiple elves`() {
-
-        val calorieCounter = CalorieCounter(exampleCalories)
-
-        assertEquals(5, calorieCounter.numberOfElves())
+        assertEquals(5, CalorieCounter(exampleCalories).numberOfElves())
     }
 
     @Test
     fun `calorie counter provides the elf with the highest number of calories`() {
-
-        val calorieCounter = CalorieCounter(exampleCalories)
-
-        assertEquals(24000, calorieCounter.highestAmountOfCalories())
+        assertEquals(24000, CalorieCounter(exampleCalories).highestAmountOfCalories())
     }
 
     @Test
     fun `calorie counter provides the sum of calories of the top 3 elves`() {
-
-        val calorieCounter = CalorieCounter(exampleCalories)
-
-        assertEquals(45000, calorieCounter.sumOfTopThree())
+        assertEquals(45000, CalorieCounter(exampleCalories).sumOfTopThree())
     }
 
     @Test
