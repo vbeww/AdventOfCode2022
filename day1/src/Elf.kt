@@ -1,6 +1,7 @@
 class Elf(caloriesList: String) {
-    fun totalCalories(): Int {
-        return 6000
+    private val calories = caloriesList.split("\n").map { it.toLong()}
+    fun totalCalories(): Long {
+        return calories.sum()
     }
 
 }
