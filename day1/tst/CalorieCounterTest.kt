@@ -40,6 +40,8 @@ internal class CalorieCounterTest {
 
     @Test
     fun part1() {
+        println(CalorieCounter(puzzleInput).highestAmountOfCalories())
+    }
 
     }
 
