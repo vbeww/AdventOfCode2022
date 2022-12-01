@@ -20,4 +20,29 @@ internal class CalorieCounterTest {
         val secondElf = Elf(caloriesListSecondtElf)
         assertEquals(63071, secondElf.totalCalories)
     }
+
+    @Test
+    fun `calorie counter has multiple elves`() {
+
+        val calorieCounter = CalorieCounter(exampleCalories)
+
+        assertEquals(5, calorieCounter.numberOfElves())
+    }
+
+    private val exampleCalories = """
+1000
+2000
+3000
+
+4000
+
+5000
+6000
+
+7000
+8000
+9000
+
+10000
+        """.trimIndent()
 }
