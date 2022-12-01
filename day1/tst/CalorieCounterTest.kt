@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test
+import java.io.File
 import kotlin.test.assertEquals
 
 internal class CalorieCounterTest {
@@ -37,20 +38,11 @@ internal class CalorieCounterTest {
         assertEquals(24000, calorieCounter.highestAmountOfCalories())
     }
 
-    private val exampleCalories = """
-1000
-2000
-3000
+    @Test
+    fun part1() {
 
-4000
+    }
 
-5000
-6000
-
-7000
-8000
-9000
-
-10000
-        """.trimIndent()
+    private val exampleCalories = javaClass.getResource("/example.txt").readText()
+    private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
