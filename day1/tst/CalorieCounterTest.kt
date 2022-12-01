@@ -29,6 +29,14 @@ internal class CalorieCounterTest {
         assertEquals(5, calorieCounter.numberOfElves())
     }
 
+    @Test
+    fun `calorie counter provides the elf with the highest number of calories`() {
+
+        val calorieCounter = CalorieCounter(exampleCalories)
+
+        assertEquals(24000, calorieCounter.highestAmountOfCalories())
+    }
+
     private val exampleCalories = """
 1000
 2000
