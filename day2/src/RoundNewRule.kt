@@ -21,6 +21,7 @@ class RoundNewRule(round: String) {
     }
     private fun asCounterMove(gesture: Char): Move {
         return when (gesture) {
+            'X' -> opponentMove.beats()
             'Y' -> opponentMove
             else -> throw IllegalArgumentException("Unknown gesture: $gesture")
         }
@@ -34,4 +35,10 @@ class RoundNewRule(round: String) {
     }
 
     val score = myMove.value + points
+}
+
+private fun RoundNewRule.Move.beats() = when (this)  {
+    RoundNewRule.Move.Rock -> RoundNewRule.Move.Scissors
+    RoundNewRule.Move.Paper -> RoundNewRule.Move.Rock
+    RoundNewRule.Move.Scissors -> RoundNewRule.Move.Paper
 }
