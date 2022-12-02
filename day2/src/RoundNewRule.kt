@@ -23,6 +23,7 @@ class RoundNewRule(round: String) {
         return when (gesture) {
             'X' -> opponentMove.beats()
             'Y' -> opponentMove
+            'Z' -> opponentMove.beats().beats()
             else -> throw IllegalArgumentException("Unknown gesture: $gesture")
         }
     }

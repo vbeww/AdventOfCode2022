@@ -24,6 +24,13 @@ class RockPaperScissorsTestNewRules {
         assertEquals(2, RoundNewRule("C X").score)
     }
 
+    @Test
+    fun `win hand scores`() {
+        assertEquals(8, RoundNewRule("A Z").score)
+        assertEquals(9, RoundNewRule("B Z").score)
+        assertEquals(7, RoundNewRule("C Z").score)
+    }
+
     private val exampleCalories = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
