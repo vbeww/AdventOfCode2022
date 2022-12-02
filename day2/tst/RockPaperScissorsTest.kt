@@ -27,4 +27,17 @@ class RockPaperScissorsTest {
         assertEquals(2, Round("C Y").score)
         assertEquals(3, Round("A Z").score)
     }
+
+    @Test
+    fun `full game score` () {
+        assertEquals(15, Game(exampleCalories).totalScore)
+    }
+
+    @Test
+    fun `Part 1` () {
+        println("Part 1: ${Game(puzzleInput).totalScore}")
+    }
+    
+    private val exampleCalories = javaClass.getResource("/example.txt").readText()
+    private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
