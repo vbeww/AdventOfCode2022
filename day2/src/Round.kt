@@ -19,5 +19,13 @@ class Round(round: String) {
         }
     }
 
-    val score = myMove.value + 6
+    private val points = when {
+        opponentMove == myMove -> 3
+        opponentMove == Move.Rock && myMove == Move.Paper -> 6
+        opponentMove == Move.Paper && myMove == Move.Scissors -> 6
+        opponentMove == Move.Scissors && myMove == Move.Rock -> 6
+        else -> 0
+    }
+
+    val score = myMove.value + points
 }

@@ -14,4 +14,17 @@ class RockPaperScissorsTest {
         assertEquals(9, Round("B Z").score)
     }
 
+    @Test
+    fun `draw hand scores`() {
+        assertEquals(4, Round("A X").score)
+        assertEquals(5, Round("B Y").score)
+        assertEquals(6, Round("C Z").score)
+    }
+
+    @Test
+    fun `losing hand scores`() {
+        assertEquals(1, Round("B X").score)
+        assertEquals(2, Round("C Y").score)
+        assertEquals(3, Round("A Z").score)
+    }
 }
