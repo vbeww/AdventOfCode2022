@@ -7,4 +7,11 @@ import kotlin.test.assertEquals
  * C & Z = Scissors
  */
 class RockPaperScissorsTest {
+    @Test
+    fun `winning hand scores`() {
+        assertEquals(7, Round("C X").score)
+        assertEquals(8, Round("A Y").score)
+        assertEquals(9, Round("B Z").score)
+    }
+
 }
