@@ -18,16 +18,6 @@ internal class RucksackTest {
     }
 
     @Test
-    fun `turn mistake into correct priority`() {
-        assertEquals(1, Rucksack("abcaBC").priorityOfMistake)
-        assertEquals(2, Rucksack("abcAbC").priorityOfMistake)
-        assertEquals(3, Rucksack("abcABc").priorityOfMistake)
-        assertEquals(27, Rucksack("AbcABC").priorityOfMistake)
-        assertEquals(28, Rucksack("aBcABC").priorityOfMistake)
-        assertEquals(29, Rucksack("abCABC").priorityOfMistake)
-    }
-
-    @Test
     fun `check the example elves bags`() {
         val totalPriority = Expedition(exampleInput).totalMistakePriority
         assertEquals(157, totalPriority)
