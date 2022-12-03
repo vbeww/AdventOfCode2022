@@ -11,9 +11,14 @@ internal class GroupBadgesTest {
     }
 
     @Test
-    fun `find badges of a group`() {
+    fun `find badge priority of a group`() {
         assertEquals(30, Group(Rucksack("abaD"), Rucksack("Dffg"), Rucksack("xyDy")).badgePriority)
         assertEquals(34, Group(Rucksack("abHa"), Rucksack("fHfg"), Rucksack("xyHy")).badgePriority)
+    }
+
+    @Test
+    fun `total priority of example groups`() {
+        assertEquals(70, Expedition(exampleInput).totalBadgePriority)
     }
 
     private val exampleInput = javaClass.getResource("/example.txt").readText()
