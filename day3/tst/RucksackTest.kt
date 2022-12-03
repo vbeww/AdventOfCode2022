@@ -29,13 +29,13 @@ internal class RucksackTest {
 
     @Test
     fun `check the example elves bags`() {
-        val totalPriority = exampleInput.split("\n").sumBy { Rucksack(it).priorityOfMistake }
+        val totalPriority = Expedition(exampleInput).totalMistakePriority
         assertEquals(157, totalPriority)
     }
 
     @Test
     fun `check the puzzle elves bags for Part 1`() {
-        val totalPriority = puzzleInput.split("\n").sumBy { Rucksack(it).priorityOfMistake }
+        val totalPriority = Expedition(puzzleInput).totalMistakePriority
         println("Part 1: $totalPriority")
     }
 

@@ -23,7 +23,7 @@ internal class GroupBadgesTest {
 
     @Test
     fun `total priority of puzzleInput groups`() {
-        println("Part 2 : ${Expedition(puzzleInput).totalBadgePriority}")
+        println("Part 2: ${Expedition(puzzleInput).totalBadgePriority}")
     }
 
     private val exampleInput = javaClass.getResource("/example.txt").readText()
