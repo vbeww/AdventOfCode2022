@@ -17,6 +17,16 @@ internal class RucksackTest {
         assertEquals('c', Rucksack("abcABc").mistake)
     }
 
+    @Test
+    fun `turn mistake into correct priority`() {
+        assertEquals(1, Rucksack("abcaBC").priorityOfMistake)
+        assertEquals(2, Rucksack("abcAbC").priorityOfMistake)
+        assertEquals(3, Rucksack("abcABc").priorityOfMistake)
+        assertEquals(27, Rucksack("AbcABC").priorityOfMistake)
+        assertEquals(28, Rucksack("aBcABC").priorityOfMistake)
+        assertEquals(29, Rucksack("abCABC").priorityOfMistake)
+    }
+
     private val exampleCalories = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
