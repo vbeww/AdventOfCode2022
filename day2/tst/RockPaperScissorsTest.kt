@@ -30,7 +30,7 @@ class RockPaperScissorsTest {
 
     @Test
     fun `full game score` () {
-        assertEquals(15, Game(exampleCalories).totalScore)
+        assertEquals(15, Game(exampleInput).totalScore)
     }
 
     @Test
@@ -38,6 +38,6 @@ class RockPaperScissorsTest {
         println("Part 1: ${Game(puzzleInput).totalScore}")
     }
     
-    private val exampleCalories = javaClass.getResource("/example.txt").readText()
+    private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }

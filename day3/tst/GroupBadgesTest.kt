@@ -16,6 +16,6 @@ internal class GroupBadgesTest {
         assertEquals(34, Group(Rucksack("abHa"), Rucksack("fHfg"), Rucksack("xyHy")).badgePriority)
     }
 
-    private val exampleCalories = javaClass.getResource("/example.txt").readText()
+    private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
