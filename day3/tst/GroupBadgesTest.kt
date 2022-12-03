@@ -21,6 +21,11 @@ internal class GroupBadgesTest {
         assertEquals(70, Expedition(exampleInput).totalBadgePriority)
     }
 
+    @Test
+    fun `total priority of puzzleInput groups`() {
+        println("Part 2 : ${Expedition(puzzleInput).totalBadgePriority}")
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
