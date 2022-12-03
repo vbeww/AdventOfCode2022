@@ -27,6 +27,18 @@ internal class RucksackTest {
         assertEquals(29, Rucksack("abCABC").priorityOfMistake)
     }
 
+    @Test
+    fun `check the example elves bags`() {
+        val totalPriority = exampleCalories.split("\n").sumBy { Rucksack(it).priorityOfMistake }
+        assertEquals(157, totalPriority)
+    }
+
+    @Test
+    fun `check the puzzle elves bags for Part 1`() {
+        val totalPriority = puzzleInput.split("\n").sumBy { Rucksack(it).priorityOfMistake }
+        println("Part 1: $totalPriority")
+    }
+
     private val exampleCalories = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
