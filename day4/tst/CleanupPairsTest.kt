@@ -1,5 +1,7 @@
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import kotlin.test.assertFalse
 
 class CleanupPairsTest {
     @Test
@@ -16,4 +18,12 @@ class CleanupPairsTest {
         assertFalse(Elf("3-3").containsSections(Elf("2-4")))
         assertFalse(Elf("4-4").containsSections(Elf("2-4")))
     }
+
+    @Test
+    fun `example contains two pairs that have overlap in sections`() {
+        assertEquals(2, CleanupCrew(exampleInput).numberOfOverlappingPairs())
+    }
+
+    private val exampleInput = javaClass.getResource("/example.txt").readText()
+    private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
