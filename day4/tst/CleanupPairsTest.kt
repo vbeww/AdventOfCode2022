@@ -58,6 +58,11 @@ class CleanupPairsTest {
         assertEquals(4, CleanupCrew(exampleInput).numberOfPartlyOverlappingPairs())
     }
 
+    @Test
+    fun `Part 2`() {
+        println("Part 2: ${CleanupCrew(puzzleInput).numberOfPartlyOverlappingPairs()}")
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
