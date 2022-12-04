@@ -6,4 +6,8 @@ class CleanupCrew(input: String) {
     fun numberOfOverlappingPairs() = pairs.count {
         it.first.containsSections(it.second) || it.second.containsSections(it.first)
     }
+
+    fun numberOfPartlyOverlappingPairs() = pairs.count {
+        it.first.containsStartSection(it.second) || it.second.containsStartSection(it.first)
+    }
 }

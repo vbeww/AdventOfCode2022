@@ -20,7 +20,7 @@ class CleanupPairsTest {
     }
 
     @Test
-    fun `example contains two pairs that have overlap in sections`() {
+    fun `example contains two pairs that have full overlap in sections`() {
         assertEquals(2, CleanupCrew(exampleInput).numberOfOverlappingPairs())
     }
 
@@ -52,6 +52,12 @@ class CleanupPairsTest {
         assertFalse(Elf("7-9").containsStartSection(Elf("3-9")))
         assertFalse(Elf("7-9").containsStartSection(Elf("2-11")))
     }
+
+    @Test
+    fun `example contains four pairs that have any overlap in sections`() {
+        assertEquals(4, CleanupCrew(exampleInput).numberOfPartlyOverlappingPairs())
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
