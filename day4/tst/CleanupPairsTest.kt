@@ -29,6 +29,29 @@ class CleanupPairsTest {
         println("Part 1: ${CleanupCrew(puzzleInput).numberOfOverlappingPairs()}")
     }
 
+    @Test
+    fun `an Elf knows if his cleanup sections contains another Elf's start section`() {
+        assertTrue(Elf("2-4").containsStartSection(Elf("3-3")))
+        assertTrue(Elf("2-8").containsStartSection(Elf("4-8")))
+        assertTrue(Elf("7-9").containsStartSection(Elf("9-9")))
+        assertTrue(Elf("7-9").containsStartSection(Elf("7-7")))
+    }
+
+    @Test
+    fun `an Elf knows if his cleanup sections partly contains another Elf's start section even if it ends out of range`() {
+        assertTrue(Elf("2-4").containsStartSection(Elf("3-99")))
+        assertTrue(Elf("2-8").containsStartSection(Elf("4-999")))
+        assertTrue(Elf("7-9").containsStartSection(Elf("9-10")))
+        assertTrue(Elf("7-9").containsStartSection(Elf("7-11")))
+    }
+
+    @Test
+    fun `an Elf does not know if another Elf's end sections is contained within their range`() {
+        assertFalse(Elf("2-4").containsStartSection(Elf("0-3")))
+        assertFalse(Elf("2-8").containsStartSection(Elf("1-2")))
+        assertFalse(Elf("7-9").containsStartSection(Elf("3-9")))
+        assertFalse(Elf("7-9").containsStartSection(Elf("2-11")))
+    }
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
