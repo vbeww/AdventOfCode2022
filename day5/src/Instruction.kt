@@ -1,0 +1,1 @@
+data class Instruction(val moves: Int, val from: Int, val to: Int)

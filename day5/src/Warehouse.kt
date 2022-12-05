@@ -19,5 +19,5 @@ class Warehouse(input: String) {
         }
     }
 
-    fun cratesOnTop() = stacks.map { it.last() }.joinToString("")
+    fun cratesOnTop() = stacks.map { it.lastOrNull() ?: "" }.joinToString("")
 }
