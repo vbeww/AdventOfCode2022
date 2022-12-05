@@ -65,6 +65,24 @@ internal class StackingCratesTest {
         assertEquals("NMD", warehouse.cratesOnTop())
     }
 
+    @Test
+    fun `rearrange example warehouse using 9001`() {
+        val warehouse = Warehouse(exampleInput.split("\n\n")[0])
+        val instructions = Instructions(exampleInput.split("\n\n")[1]).instructions
+        warehouse.moveCrates9001(instructions)
+
+        assertEquals("MCD", warehouse.cratesOnTop())
+    }
+
+    @Test
+    fun `Part 2`() {
+        val warehouse = Warehouse(puzzleInput.split("\n\n")[0])
+        val instructions = Instructions(puzzleInput.split("\n\n")[1]).instructions
+        warehouse.moveCrates9001(instructions)
+
+        println("Part 2: ${warehouse.cratesOnTop()}")
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
