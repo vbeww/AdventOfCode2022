@@ -47,6 +47,15 @@ internal class StackingCratesTest {
         assertEquals("CMZ", warehouse.cratesOnTop())
     }
 
+    @Test
+    fun `Part 1`() {
+        val warehouse = Warehouse(puzzleInput.split("\n\n")[0])
+        val instructions = Instructions(puzzleInput.split("\n\n")[1]).instructions
+        warehouse.moveCrates(instructions)
+
+        println("Part 1: ${warehouse.cratesOnTop()}")
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
