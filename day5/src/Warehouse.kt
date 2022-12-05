@@ -4,11 +4,11 @@ class Warehouse(input: String) {
     init {
         val lines = input.split("\n").asReversed()
         val numberOfStacks = lines.first().split(" ").last().let { it.toInt() }
-        (0 until numberOfStacks).forEach { stacks.add(mutableListOf()) }
+        repeat(numberOfStacks) { stacks.add(mutableListOf()) }
 
 
         (1 until lines.size).forEach { lineNumber ->
-            (0 until numberOfStacks).forEach { stack ->
+            repeat(numberOfStacks) { stack ->
                 val line = lines[lineNumber]
                 val stackPositionOnLine = stack * 4 + 1
                 if (stackPositionOnLine < line.length) {
@@ -20,4 +20,13 @@ class Warehouse(input: String) {
     }
 
     fun cratesOnTop() = stacks.map { it.lastOrNull() ?: "" }.joinToString("")
+    fun moveCrates(instructions: List<Instruction>) {
+        instructions.forEach { instruction ->
+            val fromStack = stacks[instruction.from - 1]
+            val toStack = stacks[instruction.to -1]
+            repeat(instruction.moves) {
+                toStack.add(fromStack.removeAt(fromStack.size -1))
+            }
+        }
+    }
 }
