@@ -56,6 +56,15 @@ internal class StackingCratesTest {
         println("Part 1: ${warehouse.cratesOnTop()}")
     }
 
+    @Test
+    fun `applying instruction with multiple moves using 9001 changes stacks differently`() {
+        val warehouse = Warehouse(exampleInput.split("\n\n")[0])
+        val instruction = Instruction(2, 2, 3)
+        warehouse.moveCrates9001(listOf(instruction))
+
+        assertEquals("NMD", warehouse.cratesOnTop())
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }

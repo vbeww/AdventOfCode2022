@@ -20,12 +20,24 @@ class Warehouse(input: String) {
     }
 
     fun cratesOnTop() = stacks.map { it.lastOrNull() ?: "" }.joinToString("")
+
     fun moveCrates(instructions: List<Instruction>) {
         instructions.forEach { instruction ->
             val fromStack = stacks[instruction.from - 1]
             val toStack = stacks[instruction.to -1]
             repeat(instruction.moves) {
                 toStack.add(fromStack.removeAt(fromStack.size -1))
+            }
+        }
+    }
+
+    fun moveCrates9001(instructions: List<Instruction>) {
+        instructions.forEach { instruction ->
+            val fromStack = stacks[instruction.from - 1]
+            val toStack = stacks[instruction.to -1]
+            val indexToRemove = fromStack.size - instruction.moves
+            repeat(instruction.moves) {
+                toStack.add(fromStack.removeAt(indexToRemove))
             }
         }
     }
