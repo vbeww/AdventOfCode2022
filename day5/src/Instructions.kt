@@ -1,5 +1,7 @@
 class Instructions(input: String) {
     val instructions = input.split("\n").map {
-        Instruction("${it[5]}".toInt(), "${it[12]}".toInt(), "${it[17]}".toInt())
+        it.split(" ").let {instruction ->
+            Instruction(instruction[1].toInt(), instruction[3].toInt(), instruction[5].toInt())
+        }
     }
 }

@@ -32,6 +32,21 @@ internal class StackingCratesTest {
         assertEquals("NMC", warehouse.cratesOnTop())
     }
 
+    @Test
+    fun `input with large numbers translates to a set of instructions`() {
+        val instructions = Instructions("move 24 from 41 to 25")
+        assertEquals(Instruction(24, 41, 25), instructions.instructions.first())
+    }
+
+    @Test
+    fun `rearrange example warehouse`() {
+        val warehouse = Warehouse(exampleInput.split("\n\n")[0])
+        val instructions = Instructions(exampleInput.split("\n\n")[1]).instructions
+        warehouse.moveCrates(instructions)
+
+        assertEquals("CMZ", warehouse.cratesOnTop())
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
