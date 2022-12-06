@@ -1,8 +1,10 @@
 class Device(bufferStream: String) {
-    val messageMarkerPosition = (14..bufferStream.length).first {
-        bufferStream.substring((it - 14) until it).toList().distinct().size == 14
-    }
-    val packetMarkerPosition = (4..bufferStream.length).first {
-        bufferStream.substring((it - 4) until it).toList().distinct().size == 4
+    val messageMarkerPosition = findMarker(bufferStream, 14)
+    val packetMarkerPosition = findMarker(bufferStream, 4)
+
+    private fun findMarker(bufferStream: String, size: Int): Int {
+        return (size..bufferStream.length).first {
+            bufferStream.substring((it - size) until it).toList().distinct().size == size
+        }
     }
 }
