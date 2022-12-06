@@ -20,5 +20,10 @@ internal class SubRoutineTest {
         println("Part 1: ${Device(puzzleInput).packetMarkerPosition}")
     }
 
+    @Test
+    fun `The device can identify the position of the message marker`() {
+        assertEquals(19, Device("mjqjpqmgbljsphdztnvjfqwrcgsmlb").messageMarkerPosition)
     }
+
+    private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
