@@ -33,5 +33,10 @@ internal class SubRoutineTest {
         assertEquals(26, Device("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw").messageMarkerPosition)
     }
 
+    @Test
+    fun `Part 2`() {
+        println("Part 2: ${Device(puzzleInput).messageMarkerPosition}")
+    }
+
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
