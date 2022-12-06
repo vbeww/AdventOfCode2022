@@ -3,16 +3,22 @@ import org.junit.jupiter.api.Test
 
 internal class SubRoutineTest {
     @Test
-    fun `The device can identify the position of the subroutine`() {
-        assertEquals(7, Device("mjqjpqmgbljsphdztnvjfqwrcgsmlb").markerPosition)
+    fun `The device can identify the position of the packet marker`() {
+        assertEquals(7, Device("mjqjpqmgbljsphdztnvjfqwrcgsmlb").packetMarkerPosition)
     }
 
     @Test
     fun `Confirm other examples`() {
-        assertEquals(5, Device("bvwbjplbgvbhsrlpgdmjqwftvncz").markerPosition)
-        assertEquals(6, Device("nppdvjthqldpwncqszvftbrmjlhg").markerPosition)
-        assertEquals(10, Device("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg").markerPosition)
-        assertEquals(11, Device("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw").markerPosition)
+        assertEquals(5, Device("bvwbjplbgvbhsrlpgdmjqwftvncz").packetMarkerPosition)
+        assertEquals(6, Device("nppdvjthqldpwncqszvftbrmjlhg").packetMarkerPosition)
+        assertEquals(10, Device("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg").packetMarkerPosition)
+        assertEquals(11, Device("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw").packetMarkerPosition)
+    }
+
+    @Test
+    fun `Part 1`() {
+        println("Part 1: ${Device(puzzleInput).packetMarkerPosition}")
+    }
 
     }
 }
