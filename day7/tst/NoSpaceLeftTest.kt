@@ -38,7 +38,7 @@ class NoSpaceLeftTest {
     }
 
     @Test
-    fun `also count sub-folder size`() {
+    fun `count sub-folder size`() {
         val filestore = Filestore("""
             ${'$'} cd /
             ${'$'} ls
@@ -50,5 +50,44 @@ class NoSpaceLeftTest {
             50 c.txt
         """.trimIndent())
         assertEquals(500, filestore.totalOfAtMost100_000())
+    }
+
+    @Test
+    fun `count deep nested folders size`() {
+        val filestore = Filestore("""
+            ${'$'} cd /
+            ${'$'} ls
+            100 b.txt
+            dir a
+            300 b.txt
+            ${'$'} cd a
+            ${'$'} ls
+            50 c.txt
+            dir b
+            ${'$'} cd b
+            ${'$'} ls
+            2 d.txt
+        """.trimIndent())
+        assertEquals(506, filestore.totalOfAtMost100_000())
+    }
+
+    @Test
+    fun `count folders side-by-side size`() {
+        val filestore = Filestore("""
+            ${'$'} cd /
+            ${'$'} ls
+            100 b.txt
+            dir a
+            300 b.txt
+            dir b
+            ${'$'} cd a
+            ${'$'} ls
+            50 c.txt
+            ${'$'} cd ..
+            ${'$'} cd b
+            ${'$'} ls
+            2 d.txt
+        """.trimIndent())
+        assertEquals(504, filestore.totalOfAtMost100_000())
     }
 }
