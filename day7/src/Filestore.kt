@@ -6,7 +6,12 @@ class Filestore(input: String) {
                 .map { it.second }
                 .filter { it <= 100_000L }
                 .sum()
+    }
 
+    fun removeSmallestToMakeSpace(): Long {
+        val folderSizes = recursiveListing(0, "/").second
+        val diskSpaceToClean = folderSizes.last { it.first == "/" }.second - 40_000_000
+        return folderSizes.map { it.second }.filter { it >= diskSpaceToClean }.min()!!
     }
 
     private fun recursiveListing(startPointer: Int, folder: String): Pair<Int, List<Pair<String, Long>>>{

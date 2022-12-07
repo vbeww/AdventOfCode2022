@@ -101,6 +101,11 @@ class NoSpaceLeftTest {
         println("Part 1: ${Filestore(puzzleInput).totalOfAtMost100_000()}")
     }
 
+    @Test
+    fun `example remove smallest`() {
+        assertEquals(24933642, Filestore(exampleInput).removeSmallestToMakeSpace())
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
