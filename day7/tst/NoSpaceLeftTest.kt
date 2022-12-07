@@ -90,4 +90,12 @@ class NoSpaceLeftTest {
         """.trimIndent())
         assertEquals(504, filestore.totalOfAtMost100_000())
     }
+
+    @Test
+    fun `example listing`() {
+        assertEquals(95437, Filestore(exampleInput).totalOfAtMost100_000())
+    }
+
+    private val exampleInput = javaClass.getResource("/example.txt").readText()
+    private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
