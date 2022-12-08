@@ -1,18 +1,19 @@
 class Forest(input: String) {
-    private val allTheTrees = input.split("\n").map { it.map { tree -> Tree("$tree".toInt()) } }
+    private val forest = input.split("\n").map { it.map { tree -> Tree("$tree".toInt()) } }
+    private val rotatedForest = forest.rotate90()
 
     fun numberOfVisibleTrees(): Int {
-        allTheTrees.forEach { row ->
+        forest.forEach { row ->
             markVisibleTrees(row)
             markVisibleTrees(row.reversed())
 
         }
-        allTheTrees.rotate90().forEach { row ->
+        rotatedForest.forEach { row ->
             markVisibleTrees(row)
             markVisibleTrees(row.reversed())
 
         }
-        return allTheTrees.flatten().filter { tree -> tree.visible }.count()
+        return forest.flatten().filter { tree -> tree.visible }.count()
     }
 
     private fun markVisibleTrees(trees: List<Tree>) {
