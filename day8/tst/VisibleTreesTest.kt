@@ -43,6 +43,12 @@ class VisibleTreesTest {
         println("Part 1: " + forest.numberOfVisibleTrees())
     }
 
+    @Test
+    fun `highest scenic score example forest`() {
+        val forest = Forest(exampleInput)
+        assertEquals(8, forest.highestScenicScore())
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
