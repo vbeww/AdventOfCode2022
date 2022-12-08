@@ -49,6 +49,12 @@ class VisibleTreesTest {
         assertEquals(8, forest.highestScenicScore())
     }
 
+    @Test
+    fun `Part 2`() {
+        val forest = Forest(puzzleInput)
+        println("Part 2: " + forest.highestScenicScore())
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
