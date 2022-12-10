@@ -32,13 +32,14 @@ class Rope(instructions: String) {
 }
 
 private fun Pair<Int, Int>.getCloser(other: Pair<Int, Int>): Pair<Int, Int> {
-    return first.closer(other.first) to second.closer(other.second)
+    val distance = if (this.first != other.first && this.second != other.second) 0 else 1
+    return first.closer(other.first, distance) to second.closer(other.second, distance)
 }
 
-private fun Int.closer(other: Int): Int {
+private fun Int.closer(other: Int, distance: Int): Int {
     return when {
-        this - other > 1 -> this - 1
-        this - other < -1 -> this + 1
+        this - other > distance -> this - 1
+        this - other < -distance -> this + 1
         else -> this
     }
 }
