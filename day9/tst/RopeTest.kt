@@ -17,4 +17,44 @@ class RopeTest {
         assertEquals(2, Rope("U 2").groundCovered)
         assertEquals(4, Rope("D 4").groundCovered)
     }
+
+    @Test
+    fun aroundTheTail() {
+        val instructions = """
+            R 1
+            U 1
+            L 2
+            D 2
+            R 2
+            U 2
+        """.trimIndent()
+        assertEquals(1, Rope(instructions).groundCovered)
+    }
+
+    @Test
+    fun aroundTheCorner() {
+        val instructions = """
+            R 5
+            U 5
+        """.trimIndent()
+        assertEquals(9, Rope(instructions).groundCovered)
+    }
+
+    @Test
+    fun backAndForth() {
+        val instructions = """
+            R 5
+            L 5
+        """.trimIndent()
+        assertEquals(5, Rope(instructions).groundCovered)
+    }
+
+    @Test
+    fun backAndForthLonger() {
+        val instructions = """
+            R 5
+            L 10
+        """.trimIndent()
+        assertEquals(9, Rope(instructions).groundCovered)
+    }
 }
