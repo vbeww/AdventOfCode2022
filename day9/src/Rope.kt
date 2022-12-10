@@ -1,4 +1,5 @@
 import java.lang.IllegalArgumentException
+import kotlin.math.abs
 
 class Rope(instructions: String) {
     val groundCovered: Int
@@ -15,8 +16,36 @@ class Rope(instructions: String) {
                 "D" -> currentHead.first to currentHead.second + instruction.second
                 else -> throw IllegalArgumentException("Unexpected input $instruction")
             }
+            currentTail = follow(tailTrail, currentHead, currentTail)
         }
         groundCovered = tailTrail.size
     }
+
+    private fun follow(tailTrail: MutableSet<Pair<Int, Int>>, currentHead: Pair<Int, Int>, currentTail: Pair<Int, Int>): Pair<Int, Int> {
+        var movingTail = currentTail
+        while (!movingTail.nextTo(currentHead)){
+            movingTail = movingTail.getCloser(currentHead)
+            tailTrail.add(movingTail)
+        }
+        return movingTail
+    }
+}
+
+private fun Pair<Int, Int>.getCloser(other: Pair<Int, Int>): Pair<Int, Int> {
+    return first.closer(other.first) to second.closer(other.second)
+}
+
+private fun Int.closer(other: Int): Int {
+    return when {
+        this - other > 1 -> this - 1
+        this - other < -1 -> this + 1
+        else -> this
+    }
+}
+
+private fun Pair<Int, Int>.nextTo(other: Pair<Int, Int>): Boolean {
+    if (abs(this.first - other.first) > 1) return false
+    if (abs(this.second - other.second) > 1) return false
+    return true
 }
 
