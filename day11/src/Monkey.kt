@@ -1,4 +1,5 @@
 class Monkey(monkeyBrain: String) {
+    var numberOfInspectedItems = 0
     var items = monkeyBrain.info(0, "Starting items: ")
             .split(",").map { it.trim().toInt() }
 
@@ -20,8 +21,13 @@ class Monkey(monkeyBrain: String) {
         val thrown = items.map { worryLevel -> inspect(worryLevel) }.map { worryLevel ->
             worryLevel to if (worryLevel % test == 0) yesMonkey else noMonkey
         }
+        numberOfInspectedItems += thrown.size
         items = emptyList()
         return thrown
+    }
+
+    fun catch(item: Int) {
+        items = items + item
     }
 }
 
