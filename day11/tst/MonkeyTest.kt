@@ -11,8 +11,8 @@ class MonkeyTest {
     If true: throw to monkey 2
     If false: throw to monkey 3
 """.trimIndent())
-        assertEquals(listOf(79, 98), monkey.items)
-        assertEquals(12, monkey.inspect(2))
+        assertEquals(listOf(79L, 98L), monkey.items)
+        assertEquals(38, monkey.inspect(2))
         assertEquals(23, monkey.test)
         assertEquals(2, monkey.yesMonkey)
         assertEquals(3, monkey.noMonkey)
@@ -27,9 +27,9 @@ class MonkeyTest {
     If true: throw to monkey 2
     If false: throw to monkey 0
 """.trimIndent())
-        assertEquals(listOf(54, 65, 75, 74), monkey.items)
-        assertEquals(3, monkey.inspect(3))
-        assertEquals(5, monkey.inspect(10))
+        assertEquals(listOf(54L, 65L, 75L, 74L), monkey.items)
+        assertEquals(15, monkey.inspect(9))
+        assertEquals(17, monkey.inspect(11))
         assertEquals(19, monkey.test)
         assertEquals(2, monkey.yesMonkey)
         assertEquals(0, monkey.noMonkey)
@@ -45,9 +45,9 @@ class MonkeyTest {
     If false: throw to monkey 3
 """.trimIndent())
 
-        val thrownItems = monkey0.inspectItems()
+        val thrownItems = monkey0.inspectItems(0)
 
-        assertEquals(listOf(500 to 3, 620 to 3), thrownItems)
+        assertEquals(listOf(500L to 3, 620L to 3), thrownItems)
     }
 
     @Test
@@ -60,7 +60,7 @@ class MonkeyTest {
     If false: throw to monkey 3
 """.trimIndent())
         monkey.catch(15)
-        assertEquals(listOf(79, 98, 15), monkey.items)
+        assertEquals(listOf(79L, 98L, 15L), monkey.items)
     }
 
     @Test
@@ -73,7 +73,7 @@ class MonkeyTest {
     If false: throw to monkey 3
 """.trimIndent())
         assertEquals(0, monkey.numberOfInspectedItems)
-        monkey.inspectItems()
+        monkey.inspectItems(0)
         assertEquals(2, monkey.numberOfInspectedItems)
     }
 
@@ -85,8 +85,8 @@ class MonkeyTest {
         assertEquals(4, keepAwayGame.monkeys.size)
 
         val monkey0 = keepAwayGame.monkeys[0]
-        assertEquals(listOf(79, 98), monkey0.items)
-        assertEquals(12, monkey0.inspect(2))
+        assertEquals(listOf(79L, 98L), monkey0.items)
+        assertEquals(38, monkey0.inspect(2))
         assertEquals(23, monkey0.test)
         assertEquals(2, monkey0.yesMonkey)
         assertEquals(3, monkey0.noMonkey)
@@ -102,6 +102,18 @@ class MonkeyTest {
     fun `Part 1`() {
         val result = KeepAwayGame(puzzleInput).playRounds(20)
         println("Part 1: $result")
+    }
+
+    @Test
+    fun `After playing 10000 rounds the most played multiples to 2713310158`() {
+        val result = KeepAwayGame(exampleInput, false).playRounds(10_000)
+        assertEquals(2713310158, result)
+    }
+
+    @Test
+    fun `Part 2`() {
+        val result = KeepAwayGame(puzzleInput, false).playRounds(10_000)
+        println("Part 2: $result")
     }
 
     private val exampleInput = javaClass.getResource("/example.txt").readText()

@@ -1,18 +1,18 @@
-class KeepAwayGame(input: String) {
+class KeepAwayGame(input: String, divideByThree: Boolean = true) {
     val monkeys = input.split("\n\n").map {
         it.substring(it.indexOf("\n") + 1)
-    }.map { Monkey(it) }
+    }.map { Monkey(it, divideByThree) }
 
-    fun playRounds(times: Int): Int {
+    private val maximumTest = monkeys.map { it.test }.fold(1) { acc, value -> acc * value }.toLong()
+
+    fun playRounds(times: Int): Long {
         repeat(times) {
             monkeys.forEach { monkey ->
-                monkey.inspectItems().forEach { thrownItem ->
+                monkey.inspectItems(maximumTest).forEach { thrownItem ->
                     monkeys[thrownItem.second].catch(thrownItem.first)
                 }
             }
         }
         return monkeys.map { it.numberOfInspectedItems }.sortedDescending().take(2).let { it[0] * it[1] }
     }
-
-
 }
