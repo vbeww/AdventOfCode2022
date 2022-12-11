@@ -1,29 +1,31 @@
 import java.lang.IllegalArgumentException
 import kotlin.math.abs
 
-class Rope(instructions: String) {
+class Rope(instructions: String, knots: Int = 2) {
     val groundCovered: Int
 
     init {
-        var currentHead = 0 to 0
-        var currentTail = 0 to 0
+        var rope = MutableList(knots) { 0 to 0 }
         val tailTrail = mutableSetOf(0 to 0)
         instructions.split("\n").map { it.split(" ") }.map { it[0] to it[1].toInt() }.forEach { instruction ->
-            currentHead = when (instruction.first) {
-                "R" -> currentHead.first + instruction.second to currentHead.second
-                "L" -> currentHead.first - instruction.second to currentHead.second
-                "U" -> currentHead.first to currentHead.second - instruction.second
-                "D" -> currentHead.first to currentHead.second + instruction.second
+            val head = rope[0]
+            rope[0] = when (instruction.first) {
+                "R" -> head.first + instruction.second to head.second
+                "L" -> head.first - instruction.second to head.second
+                "U" -> head.first to head.second - instruction.second
+                "D" -> head.first to head.second + instruction.second
                 else -> throw IllegalArgumentException("Unexpected input $instruction")
             }
-            currentTail = follow(tailTrail, currentHead, currentTail)
+            (1 until rope.size).forEach {
+                rope[it] = follow(tailTrail, rope[it - 1], rope[it])
+            }
         }
         groundCovered = tailTrail.size
     }
 
     private fun follow(tailTrail: MutableSet<Pair<Int, Int>>, currentHead: Pair<Int, Int>, currentTail: Pair<Int, Int>): Pair<Int, Int> {
         var movingTail = currentTail
-        while (!movingTail.nextTo(currentHead)){
+        while (!movingTail.nextTo(currentHead)) {
             movingTail = movingTail.getCloser(currentHead)
             tailTrail.add(movingTail)
         }

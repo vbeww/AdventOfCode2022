@@ -68,6 +68,11 @@ class RopeTest {
         println( "Part 1: " + Rope(puzzleInput).groundCovered)
     }
 
+    @Test
+    fun exampleLongerRope() {
+        assertEquals(13, Rope(exampleInput).groundCovered)
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
