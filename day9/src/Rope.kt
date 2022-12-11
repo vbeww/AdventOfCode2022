@@ -16,20 +16,20 @@ class Rope(instructions: String, knots: Int = 2) {
                 "D" -> head.first to head.second + instruction.second
                 else -> throw IllegalArgumentException("Unexpected input $instruction")
             }
-            (1 until rope.size).forEach {
-                rope[it] = follow(tailTrail, rope[it - 1], rope[it])
-            }
+            moveRope(rope, tailTrail)
         }
         groundCovered = tailTrail.size
     }
 
-    private fun follow(tailTrail: MutableSet<Pair<Int, Int>>, currentHead: Pair<Int, Int>, currentTail: Pair<Int, Int>): Pair<Int, Int> {
-        var movingTail = currentTail
-        while (!movingTail.nextTo(currentHead)) {
-            movingTail = movingTail.getCloser(currentHead)
-            tailTrail.add(movingTail)
+    private fun moveRope(rope: MutableList<Pair<Int, Int>>, tailTrail: MutableSet<Pair<Int, Int>>) {
+        while (!(1 until rope.size).all { rope[it].nextTo(rope[it - 1]) }) {
+            (1 until rope.size).forEach {
+                if (!rope[it].nextTo(rope[it - 1])) {
+                    rope[it] = rope[it].getCloser(rope[it - 1])
+                    if (it == rope.size - 1) tailTrail.add(rope[it])
+                }
+            }
         }
-        return movingTail
     }
 }
 

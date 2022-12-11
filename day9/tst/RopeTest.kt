@@ -70,9 +70,16 @@ class RopeTest {
 
     @Test
     fun exampleLongerRope() {
-        assertEquals(13, Rope(exampleInput).groundCovered)
+        assertEquals(1, Rope(exampleInput, 10).groundCovered)
+        assertEquals(36, Rope(largerExampleInput, 10).groundCovered)
+    }
+
+    @Test
+    fun part2() {
+        println( "Part 2: " + Rope(puzzleInput, 10).groundCovered)
     }
 
     private val exampleInput = javaClass.getResource("/example.txt").readText()
+    private val largerExampleInput = javaClass.getResource("/example2.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
