@@ -67,14 +67,14 @@ class RockAndSand {
     fun `drop sand in way 2 on example world`() {
         val world = World(exampleInput)
 
-        assertEquals(93, world.dropSand2())
+        assertEquals(93, world.dropSand3())
     }
 
     @Test
     fun `drop sand in way 2 on puzzle world`() {
         val world = World(puzzleInput)
 
-        println("Part 2: " + world.dropSand2())
+        println("Part 2: " + world.dropSand3())
     }
 
     private val exampleInput = javaClass.getResource("/example.txt").readText()

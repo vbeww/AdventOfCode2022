@@ -83,10 +83,23 @@ class World(exampleInput: String) {
         return numberOfSandDrops
     }
 
-    private fun print()
-    {
+    fun dropSand3(): Int {
+        var current = setOf(500 to 0)
+        return (1..lowest + 1).sumBy { line ->
+            current = current.map { sand ->
+                listOf(
+                        sand.first - 1 to sand.second + 1, // left
+                        sand.first to sand.second + 1, // below
+                        sand.first + 1 to sand.second + 1 // right
+                ).filter { !withinRock(it) }
+            }.flatten().toSet()
+            current.size
+        } + 1 // top sand grain
+    }
+
+    private fun print() {
         (10..20).forEach { y ->
-            println( (450..600).map {x ->
+            println((450..600).map { x ->
                 when {
                     initRocks.contains(x to y) -> '#'
                     rocks.contains(x to y) -> 'O'
