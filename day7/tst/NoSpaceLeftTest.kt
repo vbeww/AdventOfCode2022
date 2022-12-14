@@ -106,6 +106,31 @@ class NoSpaceLeftTest {
         assertEquals(24933642, Filestore(exampleInput).removeSmallestToMakeSpace())
     }
 
+    @Test
+    fun `test return to subfolder`() {
+        val filestore = Filestore("""
+            ${'$'} cd /
+            ${'$'} ls
+            100 b.txt
+            dir a
+            300 b.txt
+            dir b
+            ${'$'} cd a
+            ${'$'} ls
+            50 c.txt
+            ${'$'} cd ..
+            ${'$'} cd b
+            ${'$'} ls
+            2 d.txt
+        """.trimIndent())
+        assertEquals(504, filestore.totalOfAtMost100_000())
+    }
+
+    @Test
+    fun `Part 2`() {
+        println("Part 2: ${Filestore(puzzleInput).removeSmallestToMakeSpace()}")
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
