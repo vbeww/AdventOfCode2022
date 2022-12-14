@@ -1,5 +1,5 @@
 class World(exampleInput: String) {
-    private val rocks = exampleInput.split("\n").map { line ->
+    private val initRocks = exampleInput.split("\n").map { line ->
         line.split(" -> ").map {
             val coordinate = it.split(",")
             coordinate[0].toInt() to coordinate[1].toInt()
@@ -14,11 +14,15 @@ class World(exampleInput: String) {
                 }.flatten()
             }
         }.flatten()
-    }.flatten().toMutableList()
+    }.flatten()
+
+    private val rocks = initRocks.toMutableList()
 
     private val lowest = rocks.map { it.second }.max()!!
 
     fun withinRock(sand: Pair<Int, Int>) = rocks.contains(sand)
+    fun withinRock2(sand: Pair<Int, Int>) = sand.second == lowest + 2 || withinRock(sand)
+
     fun dropSand(): Int {
         var numberOfSandDrops = 0
         var outOfBounds = false
@@ -46,5 +50,49 @@ class World(exampleInput: String) {
             }
         }
         return numberOfSandDrops
+    }
+
+    fun dropSand2(): Int {
+        var numberOfSandDrops = 0
+        var done = false
+        while (!done) {
+            var sand = 500 to 0
+            var stopped = false
+            while (!stopped) {
+                var below = sand.first to sand.second + 1
+                var left = sand.first - 1 to sand.second + 1
+                var right = sand.first + 1 to sand.second + 1
+                sand = when {
+                    !withinRock2(below) -> below
+                    !withinRock2(left) -> left
+                    !withinRock2(right) -> right
+                    else -> {
+                        stopped = true
+                        numberOfSandDrops++
+                        rocks.add(sand)
+                        if (!initRocks.contains(sand.first to sand.second + 2)) rocks.remove(sand.first to sand.second + 2)
+                        if (sand.second == lowest + 1) {
+                            print()
+                        }
+                        sand
+                    }
+                }
+                done = sand == 500 to 0
+            }
+        }
+        return numberOfSandDrops
+    }
+
+    private fun print()
+    {
+        (10..20).forEach { y ->
+            println( (450..600).map {x ->
+                when {
+                    initRocks.contains(x to y) -> '#'
+                    rocks.contains(x to y) -> 'O'
+                    else -> '.'
+                }
+            }.joinToString(""))
+        }
     }
 }
