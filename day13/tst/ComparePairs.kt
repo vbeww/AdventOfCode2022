@@ -42,4 +42,18 @@ class ComparePairs {
         assertTrue(packet1 < packet2)
         assertFalse(packet2 < packet1)
     }
+
+    @Test
+    fun `example` () {
+        assertEquals(13, SignalPairs(exampleInput).findCorrectOrderIndicesSum())
+    }
+
+
+    @Test
+    fun `Part 1` () {
+        println("Part 1 : " + SignalPairs(puzzleInput).findCorrectOrderIndicesSum())
+    }
+
+    private val exampleInput = javaClass.getResource("/example.txt").readText()
+    private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
