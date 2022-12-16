@@ -51,20 +51,14 @@ class Packet(packet: String) : Comparable<Packet> {
         return i1 to numberString.toInt()
     }
 
-    override operator fun compareTo(other: Packet): Int {
-        if (contents.indices.any { i ->
-                    if (other.contents.size < i) return@any false
-                    val a = contents[i]
-                    val b = other.contents[i]
-                    if (a is Int && b is Int) return@any a < b
-                    if (a is Packet && b is Packet) return@any a < b
-                    a.asPacket() < (b.asPacket())
-                }) {
-            return -1
-        }
-
-        return 1
-    }
+    override operator fun compareTo(other: Packet): Int
+         = contents.indices.map { i ->
+            if (other.contents.size <= i) return@map 1
+            val a = contents[i]
+            val b = other.contents[i]
+            if (a is Int && b is Int) return@map a.compareTo(b)
+            a.asPacket().compareTo(b.asPacket())
+        }.firstOrNull { it != 0 } ?: if (other.contents.size > contents.size) -1 else 0
 }
 
 private fun Any.asPacket() = when (this) {

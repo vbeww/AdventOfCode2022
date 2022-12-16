@@ -19,4 +19,27 @@ class ComparePairs {
         assertTrue(packet1 < packet2)
         assertFalse(packet2 < packet1)
     }
+
+    @Test
+    fun `test simple comparisons` () {
+        val packet1 = Packet("[3]")
+        val packet2 = Packet("[5]")
+        val packet3 = Packet("[5]")
+
+        assertTrue(packet1 < packet2)
+        assertFalse(packet2 < packet1)
+
+        assertFalse(packet3 < packet3)
+        assertFalse(packet3 > packet3)
+        assertTrue(packet3 == packet3)
+    }
+
+    @Test
+    fun `test longer list` () {
+        val packet1 = Packet("[3]")
+        val packet2 = Packet("[3,5]")
+
+        assertTrue(packet1 < packet2)
+        assertFalse(packet2 < packet1)
+    }
 }
