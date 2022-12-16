@@ -10,4 +10,13 @@ class ComparePairs {
         assertTrue(packet1 < packet2)
         assertFalse(packet2 < packet1)
     }
+
+    @Test
+    fun `compare examples with one side package` () {
+        val packet1 = Packet("[[1],[2,3,4]]")
+        val packet2 = Packet("[[1],4]")
+
+        assertTrue(packet1 < packet2)
+        assertFalse(packet2 < packet1)
+    }
 }

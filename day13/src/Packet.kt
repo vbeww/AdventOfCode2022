@@ -1,6 +1,11 @@
-class Packet(packet: String) : Comparable<Packet> {
-    private val contents = mutableListOf<Any>()
+import java.lang.IllegalArgumentException
 
+class Packet(packet: String) : Comparable<Packet> {
+    constructor(packet: Int) : this(""){
+        contents.add(packet)
+    }
+
+    private val contents = mutableListOf<Any>()
 
     init {
         var i = 1
@@ -23,9 +28,9 @@ class Packet(packet: String) : Comparable<Packet> {
     }
 
     private fun readSubPacket(packet: String, i: Int): Pair<Int, Packet> {
-        var i1 = i
-        var nextPacket = ""
-        var openBrackets = 0
+        var i1 = i+1
+        var nextPacket = "["
+        var openBrackets = 1
         while (openBrackets != 0) {
             val char = packet[i1]
             nextPacket += char
@@ -52,11 +57,18 @@ class Packet(packet: String) : Comparable<Packet> {
                     val a = contents[i]
                     val b = other.contents[i]
                     if (a is Int && b is Int) return@any a < b
-                    false
+                    if (a is Packet && b is Packet) return@any a < b
+                    a.asPacket() < (b.asPacket())
                 }) {
             return -1
         }
 
         return 1
     }
+}
+
+private fun Any.asPacket() = when (this) {
+    is Packet -> this
+    is Int -> Packet(this)
+    else -> throw IllegalArgumentException()
 }
