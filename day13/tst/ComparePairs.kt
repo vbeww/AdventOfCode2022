@@ -54,6 +54,16 @@ class ComparePairs {
         println("Part 1 : " + SignalPairs(puzzleInput).findCorrectOrderIndicesSum())
     }
 
+    @Test
+    fun `example 2` () {
+        assertEquals(140, SignalPairs(exampleInput).findDividerPositions())
+    }
+
+    @Test
+    fun `Part 2` () {
+        println("Part 2 : " + SignalPairs(puzzleInput).findDividerPositions())
+    }
+
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
