@@ -6,24 +6,32 @@ class TetrisGame(private val gasDirections: String) {
     fun height():Int = field.map { it.yPosition }.max() ?: 0
 
     fun play(times: Int) {
+        var gasIndex = 0
         repeat(times) { round ->
-            print()
             var currentTile = Tile(2 to height() + 3, possibleTiles[(round) % 5])
+            print(currentTile)
             do {
-                val moved = move(currentTile)
+                val moved = move(currentTile, gasDirections[gasIndex])
+                gasIndex = (gasIndex + 1) % gasDirections.length
                 currentTile = drop(moved)
+                print(currentTile)
             } while (moved != currentTile)
             field += currentTile
         }
         print()
     }
 
-    private fun print() {
-        println((height() downTo  0).joinToString("\n") { y ->
+    private fun print(currentTile: Tile? = null) {
+        println((height()+6 downTo  0).joinToString("\n") { y ->
             (0 until 7).joinToString("", "|", "|") { x ->
-                if (field.any { restingTile -> restingTile.overlapsPosition(x to y) }) "#" else "."
+                when {
+                    currentTile?.overlapsPosition(x to y) == true -> "@"
+                    field.any { restingTile -> restingTile.overlapsPosition(x to y) } -> "#"
+                    else -> "."
+                }
             }
         })
+        println("-".repeat(9))
     }
 
     private fun drop(tile: Tile): Tile {
@@ -32,8 +40,8 @@ class TetrisGame(private val gasDirections: String) {
         return if (collided) tile else movingTile
     }
 
-    private fun move(tile: Tile): Tile {
-        val movingTile = tile.moveRight()
+    private fun move(tile: Tile, direction: Char): Tile {
+        val movingTile = if (direction == '<') tile.moveLeft() else tile.moveRight()
         val collided = movingTile.outOfBounds() || field.any { restingTile -> restingTile.overlaps(movingTile) }
         return if (collided) tile else movingTile
     }
@@ -46,9 +54,9 @@ class TetrisGame(private val gasDirections: String) {
                     "###\n" +
                     ".#."),
 
-            TileLayout("..#\n" +
+            TileLayout("###\n" +
                     "..#\n" +
-                    "###"),
+                    "..#"),
 
             TileLayout("#\n" +
                     "#\n" +
