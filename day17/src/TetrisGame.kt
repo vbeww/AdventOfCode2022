@@ -1,3 +1,5 @@
+import kotlin.concurrent.thread
+
 class TetrisGame(private val gasDirections: String) {
     private val width = 7
 
@@ -9,12 +11,11 @@ class TetrisGame(private val gasDirections: String) {
         var gasIndex = 0
         repeat(times) { round ->
             var currentTile = Tile(2 to height() + 3, possibleTiles[(round) % 5])
-            print(currentTile)
             do {
                 val moved = move(currentTile, gasDirections[gasIndex])
                 gasIndex = (gasIndex + 1) % gasDirections.length
                 currentTile = drop(moved)
-                print(currentTile)
+//                print(currentTile)
             } while (moved != currentTile)
             field += currentTile
         }
@@ -22,7 +23,7 @@ class TetrisGame(private val gasDirections: String) {
     }
 
     private fun print(currentTile: Tile? = null) {
-        println((height()+6 downTo  0).joinToString("\n") { y ->
+        println((height()+6 downTo  maxOf(0, height() - 10 )).joinToString("\n") { y ->
             (0 until 7).joinToString("", "|", "|") { x ->
                 when {
                     currentTile?.overlapsPosition(x to y) == true -> "@"
@@ -32,6 +33,7 @@ class TetrisGame(private val gasDirections: String) {
             }
         })
         println("-".repeat(9))
+        Thread.sleep(1000)
     }
 
     private fun drop(tile: Tile): Tile {
