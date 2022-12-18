@@ -7,6 +7,6 @@ class Testris {
         val game = TetrisGame(">")
         game.play(5)
 
-        assertEquals(13, game.height())
+        assertEquals(12, game.height())
     }
 }
