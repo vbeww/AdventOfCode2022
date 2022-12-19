@@ -1,30 +1,54 @@
-import kotlin.concurrent.thread
-
 class TetrisGame(private val gasDirections: String) {
     private val width = 7
 
-    private val field = mutableListOf<Tile>()
+    private var field = mutableListOf<Tile>()
+    private val states = mutableMapOf<String, Pair<Tile, Long>>()
 
-    fun height():Int = field.map { it.yPosition }.max() ?: 0
+    fun height() = field.map { it.yPosition }.max() ?: 0
 
-    fun play(times: Int) {
+    fun play(times: Long) {
         var gasIndex = 0
-        repeat(times) { round ->
-            var currentTile = Tile(2 to height() + 3, possibleTiles[(round) % 5])
+        var round = 0L
+        while (round < times) {
+            var currentTile = Tile(2L to height() + 3, possibleTiles[(round % 5).toInt()])
             do {
                 val moved = move(currentTile, gasDirections[gasIndex])
                 gasIndex = (gasIndex + 1) % gasDirections.length
                 currentTile = drop(moved)
+                if (gasIndex == 0) {
+                    val state = field.joinToString("", "${round % 5}") { "" + it.xPos }
+                    states[state]?.apply {
+                        val pair = repeatedlyExecute(this, round, currentTile, times)
+                        currentTile = pair.first
+                        round = pair.second
+                    }
+                    states[state] = currentTile to round
+                    field = field.subList(maxOf(0, field.size - 15), field.size)
+                }
 //                print(currentTile)
             } while (moved != currentTile)
-            field += currentTile
+            field.add(currentTile)
+            round++
         }
         print()
     }
 
+    private fun repeatedlyExecute(exists: Pair<Tile, Long>, round: Long, currentTile: Tile, times: Long): Pair<Tile, Long> {
+        var round1 = round
+        var currentTile1 = currentTile
+        val rocks = round1 - exists.second
+        val height = currentTile1.yPosition - exists.first.yPosition
+        val repeatLoop = (times - round1) / rocks
+        round1 += repeatLoop * rocks
+        field = field.subList(maxOf(0, field.size - 15), field.size).map { it.moveUp(repeatLoop * height) }
+                .toMutableList()
+        currentTile1 = currentTile1.moveUp(repeatLoop * height)
+        return Pair(currentTile1, round1)
+    }
+
     private fun print(currentTile: Tile? = null) {
-        println((height()+6 downTo  maxOf(0, height() - 10 )).joinToString("\n") { y ->
-            (0 until 7).joinToString("", "|", "|") { x ->
+        println((height() + 6 downTo maxOf(0, height() - 10)).joinToString("\n") { y ->
+            (0 until 7L).joinToString("", "|", "|") { x ->
                 when {
                     currentTile?.overlapsPosition(x to y) == true -> "@"
                     field.any { restingTile -> restingTile.overlapsPosition(x to y) } -> "#"

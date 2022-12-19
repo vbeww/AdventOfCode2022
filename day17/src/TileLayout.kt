@@ -10,6 +10,6 @@ class TileLayout(s: String) {
         }.flatten()
     }
 
-    fun relativePosition (position: Pair<Int, Int>) =
+    fun relativePosition (position: Pair<Long, Long>) =
             layout.map { position.first + it.first to position.second + it.second }
 }

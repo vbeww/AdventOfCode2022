@@ -50,6 +50,22 @@ class Testris {
         println("Part 1: " + game.height())
     }
 
+    @Test
+    fun `example 2`() {
+        val game = TetrisGame(exampleInput)
+        game.play(1000000000000)
+
+        assertEquals(1514285714288, game.height())
+    }
+
+    @Test
+    fun `Part 2`() {
+        val game = TetrisGame(puzzleInput)
+        game.play(1000000000000)
+
+        println("Part 2: " + game.height())
+    }
+
 
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()
