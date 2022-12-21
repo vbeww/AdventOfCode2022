@@ -49,4 +49,52 @@ class HumanMathTest {
         """.trimIndent())
         assertEquals(6L, group.whatShouldIShout())
     }
+
+    @Test
+    fun simpleMinusTestRight() {
+        val group = MonkeyGroup("""
+            root: pppw + sjmn
+            pppw: 6
+            sjmn: abcd - humn
+            humn: 4
+            abcd: 13
+        """.trimIndent())
+        assertEquals(7L, group.whatShouldIShout())
+    }
+
+    @Test
+    fun simpleMinusTestLeft() {
+        val group = MonkeyGroup("""
+            root: pppw + sjmn
+            pppw: 6
+            sjmn: humn - abcd
+            humn: 4
+            abcd: 1
+        """.trimIndent())
+        assertEquals(7L, group.whatShouldIShout())
+    }
+
+    @Test
+    fun simpleDivideTestRight() {
+        val group = MonkeyGroup("""
+            root: pppw + sjmn
+            pppw: 6
+            sjmn: abcd / humn
+            humn: 4
+            abcd: 18
+        """.trimIndent())
+        assertEquals(3L, group.whatShouldIShout())
+    }
+
+    @Test
+    fun simpleDivideTestLeft() {
+        val group = MonkeyGroup("""
+            root: pppw + sjmn
+            pppw: 6
+            sjmn: humn / abcd
+            humn: 4
+            abcd: 9
+        """.trimIndent())
+        assertEquals(54L, group.whatShouldIShout())
+    }
 }

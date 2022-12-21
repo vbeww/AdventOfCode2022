@@ -34,8 +34,8 @@ class MonkeyGroup(group: String) {
         val newRequiredValue = when (monkeyMath[1]) {
             "+" -> requiredValue - ohterMonkeyValue
             "*" -> requiredValue / ohterMonkeyValue
-            "-" -> if (indexOfHumanMonkey == 0) requiredValue + ohterMonkeyValue else requiredValue - ohterMonkeyValue
-            else -> if (indexOfHumanMonkey == 0) requiredValue * ohterMonkeyValue else requiredValue / ohterMonkeyValue
+            "-" -> if (indexOfHumanMonkey == 0) requiredValue + ohterMonkeyValue else ohterMonkeyValue - requiredValue
+            else -> if (indexOfHumanMonkey == 0) requiredValue * ohterMonkeyValue else ohterMonkeyValue / requiredValue
         }
         if (monkeyMath[indexOfHumanMonkey] == "humn") return newRequiredValue
         return humanShout(humanMonkeys, monkeyMath[indexOfHumanMonkey], newRequiredValue)
