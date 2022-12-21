@@ -5,10 +5,12 @@ class MonkeyGroup(group: String) {
 
     fun valueOf(name: String): Long {
         val monkey = monkeys[name]!!
-        if (monkey.contains(Regex("[+*]"))) {
+        if (monkey.contains(Regex("[+*\\-/]"))) {
             val math = monkey.split(" ")
             return when (math[1]) {
                 "+" -> valueOf(math[0]) + valueOf(math[2])
+                "-" -> valueOf(math[0]) - valueOf(math[2])
+                "/" -> valueOf(math[0]) / valueOf(math[2])
                 else -> valueOf(math[0]) * valueOf(math[2])
             }
         }
