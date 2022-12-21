@@ -53,6 +53,12 @@ class MonkeyMathTest {
         assertEquals(152L, group.valueOf("root"))
     }
 
+    @Test
+    fun part1() {
+        val group = MonkeyGroup(puzzleInput)
+        println("Part 1: " +  group.valueOf("root"))
+    }
+
 
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val puzzleInput = javaClass.getResource("/input.txt").readText()

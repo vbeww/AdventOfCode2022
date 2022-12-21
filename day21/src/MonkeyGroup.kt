@@ -17,4 +17,38 @@ class MonkeyGroup(group: String) {
         return monkey.toLong()
     }
 
+    fun whatShouldIShout(): Long {
+        val humanMonkeys = relatesToHuman()
+        val rootMonkey = monkeys["root"]!!
+        val equals = rootMonkey.split(" + ")
+        val humanRelated = equals.first {  humanMonkeys.contains(it) }
+        val shouldEqual = valueOf(equals.first { !humanMonkeys.contains(it) })
+
+        return humanShout(humanMonkeys, humanRelated, shouldEqual)
+    }
+
+    private fun humanShout(humanMonkeys: List<String>, name:String, requiredValue: Long): Long {
+        val monkeyMath = monkeys[name]!!.split(" ")
+        val indexOfHumanMonkey = monkeyMath.indexOfFirst { humanMonkeys.contains(it) }
+        val ohterMonkeyValue = valueOf (monkeyMath[if (indexOfHumanMonkey == 0) 2 else 0])
+        val newRequiredValue = when (monkeyMath[1]) {
+            "+" -> requiredValue - ohterMonkeyValue
+            "*" -> requiredValue / ohterMonkeyValue
+            "-" -> if (indexOfHumanMonkey == 0) requiredValue + ohterMonkeyValue else requiredValue - ohterMonkeyValue
+            else -> if (indexOfHumanMonkey == 0) requiredValue * ohterMonkeyValue else requiredValue / ohterMonkeyValue
+        }
+        if (monkeyMath[indexOfHumanMonkey] == "humn") return newRequiredValue
+        return humanShout(humanMonkeys, monkeyMath[indexOfHumanMonkey], newRequiredValue)
+    }
+
+    private fun relatesToHuman(): List<String> {
+        val humanRelated = mutableListOf("humn")
+        var current = "humn"
+        while (current != "root") {
+            current = monkeys.keys.first { monkeys[it]!!.contains(current) }
+            humanRelated.add(current)
+        }
+        return humanRelated.toList()
+    }
+
 }
