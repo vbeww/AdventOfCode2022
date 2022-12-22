@@ -10,21 +10,34 @@ class Maze(layout: String) {
 
     fun walk(instructions: String): Int {
         var i = 0
-        val (newIndex, steps) = readSteps(i, instructions)
-        var newPosition = currentPosition.first to currentPosition.second + 1
-        var step = 0
-        while (step < steps && map[newPosition] != '#') {
-            currentPosition = newPosition
-            newPosition = newPosition.first to newPosition.second + 1
-            step++
+        while (i < instructions.length) {
+            val (newIndex, steps) = readSteps(i, instructions)
+            var newPosition = when (direction) {
+                0 -> currentPosition.first to currentPosition.second + 1
+                1 -> currentPosition.first + 1 to currentPosition.second
+                2 -> currentPosition.first to currentPosition.second - 1
+                else -> currentPosition.first - 1 to currentPosition.second
+            }
+            var step = 0
+            while (step < steps && map[newPosition] != '#') {
+                currentPosition = newPosition
+                newPosition = when (direction) {
+                    0 -> currentPosition.first to currentPosition.second + 1
+                    1 -> currentPosition.first + 1 to currentPosition.second
+                    2 -> currentPosition.first to currentPosition.second - 1
+                    else -> currentPosition.first - 1 to currentPosition.second
+                }
+
+                step++
+            }
+            direction = when {
+                newIndex >= instructions.length -> direction
+                instructions[newIndex] == 'L' -> direction + 3
+                instructions[newIndex] == 'R' -> direction + 1
+                else -> direction
+            } % 4
+            i = newIndex + 1
         }
-        direction = when {
-            newIndex >= instructions.length -> direction
-            instructions[newIndex] == 'L' -> direction + 3
-            instructions[newIndex] == 'R' -> direction + 1
-            else -> direction
-        } % 4
-        i = newIndex + 1
         return currentPosition.first * 1000 + currentPosition.second * 4 + direction
     }
 

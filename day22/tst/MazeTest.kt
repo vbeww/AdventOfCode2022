@@ -30,6 +30,20 @@ class MazeTest {
         assertEquals(39, password)
     }
 
+    @Test
+    fun forwardRightForward() {
+        val maze = Maze(exampleMaze)
+        val password = maze.walk("2R1")
+        assertEquals(1041, password)
+    }
+
+    @Test
+    fun shortWalkWithinBounds() {
+        val maze = Maze(exampleMaze)
+        val password = maze.walk("2R4R5L3R2")
+        assertEquals(7014, password)
+    }
+
 
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val exampleMaze = exampleInput.split("\n\n")[0]
