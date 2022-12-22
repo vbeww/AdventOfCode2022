@@ -4,9 +4,16 @@ import org.junit.jupiter.api.Test
 class MazeTest {
     @Test
     fun exampleMaze() {
-        val maze = Maze(exampleInput)
+        val maze = Maze(exampleMaze)
         val password = maze.walk("1")
         assertEquals(36, password)
+    }
+
+    @Test
+    fun walkIntoTheWall() {
+        val maze = Maze(exampleMaze)
+        val password = maze.walk("10")
+        assertEquals(40, password)
     }
 
 
