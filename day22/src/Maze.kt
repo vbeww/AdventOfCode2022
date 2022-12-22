@@ -12,33 +12,32 @@ class Maze(layout: String) {
         var i = 0
         while (i < instructions.length) {
             val (newIndex, steps) = readSteps(i, instructions)
-            var newPosition = when (direction) {
-                0 -> currentPosition.first to currentPosition.second + 1
-                1 -> currentPosition.first + 1 to currentPosition.second
-                2 -> currentPosition.first to currentPosition.second - 1
-                else -> currentPosition.first - 1 to currentPosition.second
-            }
+            var newPosition = stepForward()
             var step = 0
             while (step < steps && map[newPosition] != '#') {
                 currentPosition = newPosition
-                newPosition = when (direction) {
-                    0 -> currentPosition.first to currentPosition.second + 1
-                    1 -> currentPosition.first + 1 to currentPosition.second
-                    2 -> currentPosition.first to currentPosition.second - 1
-                    else -> currentPosition.first - 1 to currentPosition.second
-                }
+                newPosition = stepForward()
 
                 step++
             }
-            direction = when {
-                newIndex >= instructions.length -> direction
-                instructions[newIndex] == 'L' -> direction + 3
-                instructions[newIndex] == 'R' -> direction + 1
-                else -> direction
-            } % 4
+            direction = turn(newIndex, instructions)
             i = newIndex + 1
         }
         return currentPosition.first * 1000 + currentPosition.second * 4 + direction
+    }
+
+    private fun turn(newIndex: Int, instructions: String) = when {
+        newIndex >= instructions.length -> direction
+        instructions[newIndex] == 'L' -> direction + 3
+        instructions[newIndex] == 'R' -> direction + 1
+        else -> direction
+    } % 4
+
+    private fun stepForward(): Pair<Int, Int> = when (direction) {
+        0 -> currentPosition.first to currentPosition.second + 1
+        1 -> currentPosition.first + 1 to currentPosition.second
+        2 -> currentPosition.first to currentPosition.second - 1
+        else -> currentPosition.first - 1 to currentPosition.second
     }
 
     private fun readSteps(index: Int, instructions: String): Pair<Int, Int> {
