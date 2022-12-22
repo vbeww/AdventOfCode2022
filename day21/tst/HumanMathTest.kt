@@ -97,4 +97,19 @@ class HumanMathTest {
         """.trimIndent())
         assertEquals(54L, group.whatShouldIShout())
     }
+
+    @Test
+    fun example() {
+        val group = MonkeyGroup(exampleInput)
+        assertEquals(301L, group.whatShouldIShout())
+    }
+
+    @Test
+    fun part2() {
+        val group = MonkeyGroup(puzzleInput)
+        println("Part 2: " +  group.whatShouldIShout())
+    }
+
+    private val exampleInput = javaClass.getResource("/example.txt").readText()
+    private val puzzleInput = javaClass.getResource("/input.txt").readText()
 }
