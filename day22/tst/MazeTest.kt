@@ -16,6 +16,20 @@ class MazeTest {
         assertEquals(40, password)
     }
 
+    @Test
+    fun stepForwardTurnToFaceDownwards() {
+        val maze = Maze(exampleMaze)
+        val password = maze.walk("1R")
+        assertEquals(37, password)
+    }
+
+    @Test
+    fun stepForwardTurnToFaceUpwards() {
+        val maze = Maze(exampleMaze)
+        val password = maze.walk("1L")
+        assertEquals(39, password)
+    }
+
 
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val exampleMaze = exampleInput.split("\n\n")[0]

@@ -6,6 +6,7 @@ class Maze(layout: String) {
     }.flatten().toMap()
 
     private var currentPosition = map.keys.filter { it.first == 0 }.minBy { it.second }!!
+    private var direction = 0
 
     fun walk(instructions: String): Int {
         var i = 0
@@ -17,8 +18,14 @@ class Maze(layout: String) {
             newPosition = newPosition.first to newPosition.second + 1
             step++
         }
-        i = newIndex
-        return currentPosition.first * 1000 + currentPosition.second * 4 + 0
+        direction = when {
+            newIndex >= instructions.length -> direction
+            instructions[newIndex] == 'L' -> direction + 3
+            instructions[newIndex] == 'R' -> direction + 1
+            else -> direction
+        } % 4
+        i = newIndex + 1
+        return currentPosition.first * 1000 + currentPosition.second * 4 + direction
     }
 
     private fun readSteps(index: Int, instructions: String): Pair<Int, Int> {
