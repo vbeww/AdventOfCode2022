@@ -23,7 +23,7 @@ class Maze(layout: String) {
             direction = turn(newIndex, instructions)
             i = newIndex + 1
         }
-        return currentPosition.first * 1000 + currentPosition.second * 4 + direction
+        return (currentPosition.first + 1) * 1000 + (currentPosition.second + 1) * 4 + direction
     }
 
     private fun turn(newIndex: Int, instructions: String) = when {
@@ -33,11 +33,20 @@ class Maze(layout: String) {
         else -> direction
     } % 4
 
-    private fun stepForward(): Pair<Int, Int> = when (direction) {
-        0 -> currentPosition.first to currentPosition.second + 1
-        1 -> currentPosition.first + 1 to currentPosition.second
-        2 -> currentPosition.first to currentPosition.second - 1
-        else -> currentPosition.first - 1 to currentPosition.second
+    private fun stepForward(): Pair<Int, Int> {
+        val forward = when (direction) {
+            0 -> currentPosition.first to currentPosition.second + 1
+            1 -> currentPosition.first + 1 to currentPosition.second
+            2 -> currentPosition.first to currentPosition.second - 1
+            else -> currentPosition.first - 1 to currentPosition.second
+        }
+        return if (map.containsKey(forward)) forward
+        else when (direction) {
+            0 -> map.keys.filter { it.first == forward.first }.minBy { it.second }
+            1 -> map.keys.filter { it.second == forward.second }.minBy { it.first }
+            2 -> map.keys.filter { it.first == forward.first }.maxBy { it.second }
+            else -> map.keys.filter { it.second == forward.second }.maxBy { it.first }
+        }!!
     }
 
     private fun readSteps(index: Int, instructions: String): Pair<Int, Int> {

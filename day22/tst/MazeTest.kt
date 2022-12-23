@@ -6,42 +6,56 @@ class MazeTest {
     fun exampleMaze() {
         val maze = Maze(exampleMaze)
         val password = maze.walk("1")
-        assertEquals(36, password)
+        assertEquals(1040, password)
     }
 
     @Test
     fun walkIntoTheWall() {
         val maze = Maze(exampleMaze)
         val password = maze.walk("10")
-        assertEquals(40, password)
+        assertEquals(1044, password)
     }
 
     @Test
     fun stepForwardTurnToFaceDownwards() {
         val maze = Maze(exampleMaze)
         val password = maze.walk("1R")
-        assertEquals(37, password)
+        assertEquals(1041, password)
     }
 
     @Test
     fun stepForwardTurnToFaceUpwards() {
         val maze = Maze(exampleMaze)
         val password = maze.walk("1L")
-        assertEquals(39, password)
+        assertEquals(1043, password)
     }
 
     @Test
     fun forwardRightForward() {
         val maze = Maze(exampleMaze)
         val password = maze.walk("2R1")
-        assertEquals(1041, password)
+        assertEquals(2045, password)
     }
 
     @Test
     fun shortWalkWithinBounds() {
         val maze = Maze(exampleMaze)
         val password = maze.walk("2R4R5L3R2")
-        assertEquals(7014, password)
+        assertEquals(8018, password)
+    }
+
+    @Test
+    fun shortWalkOutOfBounds() {
+        val maze = Maze(exampleMaze)
+        val password = maze.walk("1L1L2L1L1")
+        assertEquals(9036, password)
+    }
+
+    @Test
+    fun exampleWalk() {
+        val maze = Maze(exampleMaze)
+        val password = maze.walk(exampleInstructions)
+        assertEquals(6032, password)
     }
 
 
