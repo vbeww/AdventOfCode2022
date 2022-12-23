@@ -58,6 +58,12 @@ class MazeTest {
         assertEquals(6032, password)
     }
 
+    @Test
+    fun part1() {
+        val maze = Maze(puzzleMaze)
+        val password = maze.walk(puzzleInstructions)
+        println("Part 1: $password")
+    }
 
     private val exampleInput = javaClass.getResource("/example.txt").readText()
     private val exampleMaze = exampleInput.split("\n\n")[0]
